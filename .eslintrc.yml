@@ -1,0 +1,13 @@
+root: true
+
+extends:
+  - dipasqualew/mixins/base
+  - dipasqualew/mixins/imports
+  - dipasqualew/mixins/ts
+
+env:
+  es6: true
+  node: true
+
+rules:
+  camelcase: 'off'
