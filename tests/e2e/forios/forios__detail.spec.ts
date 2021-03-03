@@ -1,13 +1,13 @@
 import { AxiosResponse } from 'axios';
 
 import { UserGenerator } from '../../../src/db/seeds/01_users.seed';
-import { ForioContentGenerator, ForioGenerator } from '../../../src/db/seeds/02_forios.seed';
+import { ContentGenerator, ForioGenerator } from '../../../src/db/seeds/02_forios.seed';
 import { RouteTester } from '../../utils';
 
 RouteTester.test(RouteTester.ROUTES.forios__DETAIL, (tester) => {
   const user = UserGenerator();
-  const squid = ForioGenerator({ owner_uuid: user.uuid });
-  const squidContent = ForioContentGenerator({ uuid: squid.uuid });
+  const squid = ForioGenerator({ user_uuid: user.uuid });
+  const squidContent = ContentGenerator({ uuid: squid.uuid });
 
   tester.beforeAll(async () => {
     await tester.db.table('users').insert([user]);
@@ -40,7 +40,7 @@ RouteTester.test(RouteTester.ROUTES.forios__DETAIL, (tester) => {
   });
 
   tester.test404('HTTP 404 with a random uuid', async () => {
-    const randomForio = ForioGenerator({ owner_uuid: user.uuid });
+    const randomForio = ForioGenerator({ user_uuid: user.uuid });
     const response = await tester.query(null, { uuid: randomForio.uuid });
     return { response };
   });

@@ -1,5 +1,10 @@
+import dotenv from 'dotenv';
+
 import { getDB } from './db/config';
 import { App, AppConfig } from './server';
+
+dotenv.config();
+
 
 const APP_CONFIG: AppConfig = {
   db: getDB(),

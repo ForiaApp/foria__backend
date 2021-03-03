@@ -72,5 +72,6 @@
   },
   "include": [
     "src/**/*.ts",
+    "tests/**/*.ts"
   ]
 }
