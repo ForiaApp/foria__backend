@@ -7,7 +7,7 @@ import { RouteTester } from '../../utils';
 RouteTester.test(RouteTester.ROUTES.forios__PUT, (tester) => {
   tester.test403('Without authorization', async () => {
     const user = UserGenerator();
-    const squid = ForioGenerator({ owner_uuid: user.uuid });
+    const squid = ForioGenerator({ user_uuid: user.uuid });
 
     await tester.db.table('users').insert([user]);
     await tester.db.table('forios').insert([squid]);
@@ -22,7 +22,7 @@ RouteTester.test(RouteTester.ROUTES.forios__PUT, (tester) => {
   describe('Creates a new squid', () => {
     let response: AxiosResponse;
     const user = UserGenerator();
-    const payload = ForioGenerator({ owner_uuid: user.uuid });
+    const payload = ForioGenerator({ user_uuid: user.uuid });
 
     tester.beforeAll(async () => {
       await tester.db.table('users').insert([user]);
@@ -51,7 +51,7 @@ RouteTester.test(RouteTester.ROUTES.forios__PUT, (tester) => {
   describe('Updates an existing squid', () => {
     let response: AxiosResponse;
     const user = UserGenerator();
-    const squid = ForioGenerator({ owner_uuid: user.uuid });
+    const squid = ForioGenerator({ user_uuid: user.uuid });
     const payload = { ...squid, title: 'A New Title' };
 
     tester.beforeAll(async () => {

@@ -26,7 +26,7 @@ RouteTester.test(RouteTester.ROUTES.forios__LIST, (tester) => {
 
   describe('With forios', () => {
     const user = UserGenerator();
-    const squid = ForioGenerator({ owner_uuid: user.uuid });
+    const squid = ForioGenerator({ user_uuid: user.uuid });
 
     let response: AxiosResponse;
 

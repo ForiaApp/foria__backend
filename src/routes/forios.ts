@@ -6,6 +6,7 @@ import {
   List,
   Put,
 } from '../api/views';
+import { Tables } from '../db/config';
 import type { Forio } from '../db/models';
 import type { ForioAppContext, ForioAppState } from '../server';
 import { ROUTES } from './config';
@@ -14,10 +15,17 @@ export const ForiosDetail = Detail('forios', 'uuid', false, (context) => {
   const uuid: string = context.params.uuid;
 
   return context.db
-    .select<Forio[]>('forios.uuid', 'forios.owner_uuid', 'forios.title', 'forios.content_type', 'forios.public', 'forios_contents.content')
+    .select<Forio[]>(
+      `${Tables.FORIOS}.uuid`,
+      `${Tables.FORIOS}.user_uuid`,
+      `${Tables.FORIOS}.title`,
+      `${Tables.FORIOS}.content_type`,
+      `${Tables.FORIOS}.public`,
+      `${Tables.CONTENTS}.content`,
+    )
     .from('forios')
-    .leftJoin('forios_contents', 'forios.uuid', 'forios_contents.uuid')
-    .where({ 'forios.uuid': uuid })
+    .leftJoin(Tables.CONTENTS, `${Tables.FORIOS}.uuid`, `${Tables.CONTENTS}.uuid`)
+    .where({ [`${Tables.FORIOS}.uuid`]: uuid })
     .first();
 });
 

@@ -4,37 +4,46 @@ export enum ContentType {
   IMAGE = 'IMAGE',
 }
 
-export enum PublicState {
-  PUBLIC = 'PUBLIC',
-  PRIVATE = 'PRIVATE',
+export enum BridgePolicy {
+  ALL = 'ALL',
+  APPROVED = 'APPROVED',
+  PERSONAL = 'PERSONAL',
 }
 
 export interface Forio {
   uuid: string;
-  owner_uuid: string;
+  user_uuid: string;
   title: string;
+  public: boolean;
+  bridge_policy: BridgePolicy;
   content_type: ContentType;
-  public: PublicState,
+  created: string;
 }
 
-export interface ForioContent {
+export interface Content {
   uuid: string;
   content: string;
 }
 
-export interface ForioLink {
+export interface Bridge {
   uuid: string;
-  start: string;
-  end: string;
+  description: string;
+  user_uuid: string;
+  origin_uuid: string | null;
+  destination_uuid: string | null;
+  remote_host: string;
+  remote_uuid: string | null;
+  public: boolean;
+  created: string;
 }
 
-export interface Squad {
+export interface Channel {
   uuid: string;
   title: string;
   description: string;
 }
 
-export interface ForioInForioGraph {
+export interface ForioGraph {
   uuid: string;
   graph_uuid: string;
   forio_uuid: string;
@@ -43,7 +52,10 @@ export interface ForioInForioGraph {
 export interface User {
   uuid: string;
   full_name: string;
-  preferred_name: string;
+  pref_name: string;
   email: string;
-  password?: string;
+  password: string;
+  active: boolean;
+  verified: boolean;
+  created: string;
 }

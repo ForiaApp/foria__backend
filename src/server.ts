@@ -12,6 +12,7 @@ import {
   DatabaseMiddleware,
   ErrorMiddleware,
   LoggerMiddleware,
+  PostgraphileMiddleware,
 } from './middleware';
 import { ForiosController } from './routes/forios';
 import { StatusController } from './routes/status';
@@ -60,6 +61,7 @@ export class App {
         .use(ErrorMiddleware())
         .use(DatabaseMiddleware(this.config.db))
         .use(AuthMiddleware())
+        .use(PostgraphileMiddleware())
         .use(StatusController.routes())
         .use(UsersController.routes())
         .use(ForiosController.routes());

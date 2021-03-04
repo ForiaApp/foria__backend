@@ -8,7 +8,7 @@ import { RouteTester } from '../../utils';
 RouteTester.test(RouteTester.ROUTES.forios__DELETE, (tester) => {
   tester.test403('Without authorization', async () => {
     const user = UserGenerator();
-    const squid = ForioGenerator({ owner_uuid: user.uuid });
+    const squid = ForioGenerator({ user_uuid: user.uuid });
 
     await tester.db.table('users').insert([user]);
     await tester.db.table('forios').insert([squid]);
@@ -23,7 +23,7 @@ RouteTester.test(RouteTester.ROUTES.forios__DELETE, (tester) => {
   describe('Deletes an existing squid', () => {
     let response: AxiosResponse;
     const user = UserGenerator();
-    const squid = ForioGenerator({ owner_uuid: user.uuid });
+    const squid = ForioGenerator({ user_uuid: user.uuid });
 
     tester.beforeAll(async () => {
       await tester.db.table('users').insert([user]);
